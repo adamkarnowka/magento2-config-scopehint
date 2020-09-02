@@ -1,0 +1,24 @@
+<script>
+    require([
+        'prototype'
+    ], function () {
+        function showHintx() {
+            $$('.scope_information_trigger').each(function (element) {
+                Event.observe(element, 'mouseover', function () {
+                    element.next().show();
+                    element.next().setStyle({
+                        display: 'block'
+                    });
+                });
+                Event.observe(element, 'mouseout', function () {
+                    element.next().hide();
+                    element.next().setStyle({
+                        display: 'none'
+                    })
+                });
+            });
+        }
+
+        Event.observe(window, 'load', showHintx);
+    });
+</script>

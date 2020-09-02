@@ -1,0 +1,43 @@
+.scopehint{
+    font-size:10px;
+    position:relative;
+    margin-top:12px
+}
+.scope_information_content{
+    position: absolute;
+    width: 80%;
+    background: #f7f7f7;
+    padding: 10px;
+    text-align: left;
+    right: 0;
+    z-index: 1;
+    border: 1px solid #cacaca;
+    display: none;
+}
+
+.scope_information_content ul{
+    list-style: none;
+}
+
+.scope_information_content ul li.default{
+    font-weight: bold;
+}
+
+.scope_information_content ul li.websites{
+    padding-left: 10px;
+}
+
+.scope_information_content ul li.stores{
+    padding-left: 20px;
+}
+
+span.inherits{
+    color: #8e8e8e;
+}
+
+.default_config_note{
+    padding: 5px;
+    margin-top: 20px;
+    background-color: #efefd0;
+    border: 1px solid #cabebe;
+}
