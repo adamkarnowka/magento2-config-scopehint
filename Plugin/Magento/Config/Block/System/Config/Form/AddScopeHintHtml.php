@@ -30,6 +30,11 @@ class AddScopeHintHtml{
         $path = $element->getOriginalData('path').'/'.$element->getOriginalData('id');
         $html = $this->configService->getHtmlForConfigPath($path);
 
+        // if there is no html rendered then do not render html 
+        if (!$html) {
+            return $result;
+        }
+
         $newDiv = $document->createElement('div');
 
         $fragment = $document->createDocumentFragment();

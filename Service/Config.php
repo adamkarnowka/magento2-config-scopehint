@@ -52,11 +52,25 @@ class Config {
     public function getHtmlForConfigPath($path){
         $renderElements[] = $this->renderHintElement('default', 0, 'Default', $this->getConfigValueForPath($path, 'default', 0), $path);
         $structure = $this->getStoresStructure();
+        $valueFoundAtWebsiteOrStore = false;
+
         foreach($structure as $websiteId => $storeIds){
             $website = $this->getEntityData('website', $websiteId);
+
+            // if value set at any website level
+            if ($this->getConfigValueForPath($path, 'websites', $websiteId) != false) {
+                $valueFoundAtWebsiteOrStore = true;
+            }
+
             $renderElements[] = $this->renderHintElement('websites', $websiteId, $website['name'], $this->getConfigValueForPath($path, 'websites', $websiteId), $path);
             foreach($storeIds as $storeId=>$storeCode){
                 $store = $this->getEntityData('store', $storeId);
+
+                // if value set at any store view level
+                if ($this->getConfigValueForPath($path, 'stores', $storeId) != false) {
+                    $valueFoundAtWebsiteOrStore = true;
+                }
+    
                 $renderElements[] = $this->renderHintElement('stores', $storeCode, $store['name'], $this->getConfigValueForPath($path, 'stores', $storeId), $path);
             }
         }
@@ -65,7 +79,12 @@ class Config {
             $renderElements[] = sprintf('<div class="default_config_note">%s</div>', __('This config key uses default value from config.xml!'));
         }
 
-        return '<ul>'.implode('', $renderElements).'</ul>';
+        // return rendered html only if value exists at at least one website or store view level
+        if ($valueFoundAtWebsiteOrStore) {
+            return '<ul>'.implode('', $renderElements).'</ul>';
+        } 
+        return null;
+        
     }
 
     /**
